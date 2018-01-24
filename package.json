@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "jquery": "^3.2.1",
+    "muicss": "^0.9.35",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
