@@ -5,13 +5,9 @@ use Tipsy;
 
 sub routes(Tipsy $tipsy) is export {
     route {
-        get -> {
-            static 'static/index.html'
-        }
+        get -> { static 'static/index.html' }
 
-        get -> 'js', *@path {
-            static 'static/js', @path
-        }
+        get -> 'js', *@path { static 'static/js', @path }
 
         post -> 'tips' {
             request-body -> (:$text) {
