@@ -2022,375 +2022,358 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/*
-          <CodeMirror value={props.tipText}
-                      options={{
-                        mode: 'perl',
-                        theme: 'materials',
-                        lineNumbers: true
-                      }}
-                      onChange={(editor,data,value) => {
-                       e => props.onChangeTipText(value)
-                      }}
-          />
-*/
-
-//<textarea id="codemirror"
-//    value={props.tipText}
-//    onChange={e => props.onChangeTipText(e.target.value)} />
-var SubmitTip = function SubmitTip(props) {
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      'h2',
-      null,
-      'Got a tip?'
-    ),
-    _react2.default.createElement(
-      'div',
-      null,
-      _react2.default.createElement(_reactCodemirror.UnControlled, { value: props.tipText,
-        options: {
-          mode: 'perl',
-          theme: 'materials',
-          lineNumbers: true
-        },
-        onChange: function onChange(editor, data, value) {
-          props.onChangeTipText(value);
-          //                       e => props.onChangeTipText(props.tipText)
-        }
-      })
-    ),
-    _react2.default.createElement('input', { type: 'button', value: 'Add Tip', onClick: props.onAddTip })
-  );
+var SendUserCode = function SendUserCode(props) {
+    return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+            'h2',
+            null,
+            'Got a tip?'
+        ),
+        _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(_reactCodemirror.UnControlled, { value: props.tipText,
+                options: {
+                    mode: 'perl',
+                    theme: 'materials',
+                    lineNumbers: true
+                },
+                onChange: function onChange(editor, data, value) {
+                    props.onChangeTipText(value);
+                }
+            })
+        ),
+        _react2.default.createElement('input', { type: 'button', value: 'Add Tip', onClick: props.onAddTip })
+    );
 };
 
-var TipList = function TipList(props) {
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      'h2',
-      null,
-      props.heading
-    ),
-    _react2.default.createElement(
-      'ul',
-      null,
-      props.tips.map(function (t) {
-        return _react2.default.createElement(Tip, _extends({ key: t.id }, props, t));
-      })
-    )
-  );
+var ResponseList = function ResponseList(props) {
+    return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+            'h2',
+            null,
+            props.heading
+        ),
+        _react2.default.createElement(
+            'ul',
+            null,
+            props.tips.map(function (t) {
+                return _react2.default.createElement(Response, _extends({ key: t.id }, props, t));
+            })
+        )
+    );
 };
 
-var Tip = function Tip(props) {
-  return _react2.default.createElement(
-    'li',
-    null,
-    props.text,
-    ' [',
-    _react2.default.createElement(
-      'a',
-      { href: '#',
-        onClick: function onClick() {
-          return props.onAgree(props.id);
-        } },
-      'Agree'
-    ),
-    '] [',
-    _react2.default.createElement(
-      'a',
-      { href: '#', onClick: function onClick() {
-          return props.onDisagree(props.id);
-        } },
-      'Disagree'
-    ),
-    ']'
-  );
+var Response = function Response(props) {
+    return _react2.default.createElement(
+        'li',
+        null,
+        props.text,
+        ' [',
+        _react2.default.createElement(
+            'a',
+            { href: '#',
+                onClick: function onClick() {
+                    return props.onAgree(props.id);
+                } },
+            'Agree'
+        ),
+        '] [',
+        _react2.default.createElement(
+            'a',
+            { href: '#', onClick: function onClick() {
+                    return props.onDisagree(props.id);
+                } },
+            'Disagree'
+        ),
+        ']'
+    );
 };
 
 var App = function App(props) {
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(SubmitTip, { tipText: props.tipText,
-      onChangeTipText: props.onChangeTipText,
-      onAddTip: props.onAddTip }),
-    _react2.default.createElement(TipList, { heading: 'Latest Tips', tips: props.latestTips,
-      onAgree: props.onAgree, onDisagree: props.onDisagree }),
-    _react2.default.createElement(TipList, { heading: 'Top Tips', tips: props.topTips,
-      onAgree: props.onAgree, onDisagree: props.onDisagree })
-  );
+    return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(SendUserCode, { tipText: props.tipText,
+            onChangeTipText: props.onChangeTipText,
+            onAddTip: props.onAddTip }),
+        _react2.default.createElement(ResponseList, { heading: 'Latest Tips', tips: props.latestTips,
+            onAgree: props.onAgree, onDisagree: props.onDisagree }),
+        _react2.default.createElement(ResponseList, { heading: 'Top Tips', tips: props.topTips,
+            onAgree: props.onAgree, onDisagree: props.onDisagree })
+    );
 };
 
 function mapProps(state) {
-  return state;
+    return state;
 }
 function mapDispatch(dispatch) {
-  return {
-    onChangeTipText: function onChangeTipText(text) {
-      return dispatch(Actions.changeTipText(text));
-    },
-    onAddTip: function onAddTip(text) {
-      return dispatch(Actions.addTip());
-    },
-    onAgree: function onAgree(id) {
-      return dispatch(Actions.agree(id));
-    },
-    onDisagree: function onDisagree(id) {
-      return dispatch(Actions.disagree(id));
-    }
-  };
+    return {
+        onChangeTipText: function onChangeTipText(text) {
+            return dispatch(Actions.changeTipText(text));
+        },
+        onAddTip: function onAddTip(text) {
+            return dispatch(Actions.addTip());
+        },
+        onAgree: function onAgree(id) {
+            return dispatch(Actions.agree(id));
+        },
+        onDisagree: function onDisagree(id) {
+            return dispatch(Actions.disagree(id));
+        }
+    };
 }
 
 var store = (0, _redux.createStore)(_reducer.tipsyReducer, (0, _redux.applyMiddleware)(_reduxThunk2.default));
 
 ['latest-tips', 'top-tips'].forEach(function (endpoint) {
-  var host = window.location.host;
-  var wsAction = new _reduxWebsocketAction2.default(store, 'ws://' + host + '/' + endpoint, {
-    retryCount: 3,
-    reconnectInterval: 3
-  });
-  wsAction.start();
+    var host = window.location.host;
+    var wsAction = new _reduxWebsocketAction2.default(store, 'ws://' + host + '/' + endpoint, {
+        retryCount: 3,
+        reconnectInterval: 3
+    });
+    wsAction.start();
 });
 
 var ConnectedApp = (0, _reactRedux.connect)(mapProps, mapDispatch)(App);
 (0, _reactDom.render)(_react2.default.createElement(
-  _reactRedux.Provider,
-  { store: store },
-  _react2.default.createElement(ConnectedApp, null)
+    _reactRedux.Provider,
+    { store: store },
+    _react2.default.createElement(ConnectedApp, null)
 ), document.getElementById('app'));
 
 (0, _reactDom.render)(_react2.default.createElement(
-  'div',
-  { id: 'sidedrawer', 'class': 'mui--no-user-select' },
-  _react2.default.createElement(
     'div',
-    { id: 'sidedrawer-brand', 'class': 'mui--appbar-line-height' },
+    { id: 'sidedrawer', 'class': 'mui--no-user-select' },
     _react2.default.createElement(
-      'span',
-      { 'class': 'mui--text-title' },
-      'Learn Perl 6 Online'
+        'div',
+        { id: 'sidedrawer-brand', 'class': 'mui--appbar-line-height' },
+        _react2.default.createElement(
+            'span',
+            { 'class': 'mui--text-title' },
+            'Learn Perl 6 Online'
+        )
+    ),
+    _react2.default.createElement('div', { 'class': 'mui-divider' }),
+    _react2.default.createElement(
+        'ul',
+        null,
+        _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+                'strong',
+                null,
+                'Intro to the Tour'
+            ),
+            _react2.default.createElement(
+                'ul',
+                null,
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'a',
+                        { href: '#' },
+                        'Item 1'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'a',
+                        { href: '#' },
+                        'Item 2'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'a',
+                        { href: '#' },
+                        'Item 3'
+                    )
+                )
+            )
+        ),
+        _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+                'strong',
+                null,
+                'Learning Perl 6'
+            ),
+            _react2.default.createElement(
+                'ul',
+                null,
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'a',
+                        { href: '#' },
+                        'Item 1'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'a',
+                        { href: '#' },
+                        'Item 2'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'a',
+                        { href: '#' },
+                        'Item 3'
+                    )
+                )
+            )
+        ),
+        _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+                'strong',
+                null,
+                'Programming Perl 6'
+            ),
+            _react2.default.createElement(
+                'ul',
+                null,
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'a',
+                        { href: '#' },
+                        'Item 1'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'a',
+                        { href: '#' },
+                        'Item 2'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'a',
+                        { href: '#' },
+                        'Item 3'
+                    )
+                )
+            )
+        ),
+        _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+                'strong',
+                null,
+                'Advanced Perl 6'
+            ),
+            _react2.default.createElement(
+                'ul',
+                null,
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'a',
+                        { href: '#' },
+                        'Item 1'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'a',
+                        { href: '#' },
+                        'Item 2'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'a',
+                        { href: '#' },
+                        'Item 3'
+                    )
+                )
+            )
+        )
     )
-  ),
-  _react2.default.createElement('div', { 'class': 'mui-divider' }),
-  _react2.default.createElement(
-    'ul',
-    null,
-    _react2.default.createElement(
-      'li',
-      null,
-      _react2.default.createElement(
-        'strong',
-        null,
-        'Intro to the Tour'
-      ),
-      _react2.default.createElement(
-        'ul',
-        null,
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            'a',
-            { href: '#' },
-            'Item 1'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            'a',
-            { href: '#' },
-            'Item 2'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            'a',
-            { href: '#' },
-            'Item 3'
-          )
-        )
-      )
-    ),
-    _react2.default.createElement(
-      'li',
-      null,
-      _react2.default.createElement(
-        'strong',
-        null,
-        'Learning Perl 6'
-      ),
-      _react2.default.createElement(
-        'ul',
-        null,
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            'a',
-            { href: '#' },
-            'Item 1'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            'a',
-            { href: '#' },
-            'Item 2'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            'a',
-            { href: '#' },
-            'Item 3'
-          )
-        )
-      )
-    ),
-    _react2.default.createElement(
-      'li',
-      null,
-      _react2.default.createElement(
-        'strong',
-        null,
-        'Programming Perl 6'
-      ),
-      _react2.default.createElement(
-        'ul',
-        null,
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            'a',
-            { href: '#' },
-            'Item 1'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            'a',
-            { href: '#' },
-            'Item 2'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            'a',
-            { href: '#' },
-            'Item 3'
-          )
-        )
-      )
-    ),
-    _react2.default.createElement(
-      'li',
-      null,
-      _react2.default.createElement(
-        'strong',
-        null,
-        'Advanced Perl 6'
-      ),
-      _react2.default.createElement(
-        'ul',
-        null,
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            'a',
-            { href: '#' },
-            'Item 1'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            'a',
-            { href: '#' },
-            'Item 2'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            'a',
-            { href: '#' },
-            'Item 3'
-          )
-        )
-      )
-    )
-  )
 ), document.getElementById('sidebar'));
 
 (0, _reactDom.render)(_react2.default.createElement(
-  'header',
-  { id: 'header' },
-  _react2.default.createElement(
-    'div',
-    { 'class': 'mui-appbar mui--appbar-line-height' },
+    'header',
+    { id: 'header' },
     _react2.default.createElement(
-      'div',
-      { 'class': 'mui-container-fluid' },
-      _react2.default.createElement(
-        'a',
-        { 'class': 'sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer' },
-        '\u2630'
-      ),
-      _react2.default.createElement(
-        'a',
-        { 'class': 'sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer' },
-        '\u2630'
-      ),
-      _react2.default.createElement(
-        'span',
-        { 'class': 'mui--text-title mui--visible-xs-inline-block' },
-        'Brand.io'
-      )
+        'div',
+        { 'class': 'mui-appbar mui--appbar-line-height' },
+        _react2.default.createElement(
+            'div',
+            { 'class': 'mui-container-fluid' },
+            _react2.default.createElement(
+                'a',
+                { 'class': 'sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer' },
+                '\u2630'
+            ),
+            _react2.default.createElement(
+                'a',
+                { 'class': 'sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer' },
+                '\u2630'
+            ),
+            _react2.default.createElement(
+                'span',
+                { 'class': 'mui--text-title mui--visible-xs-inline-block' },
+                'Brand.io'
+            )
+        )
     )
-  )
 ), document.getElementById('header'));
 
 (0, _reactDom.render)(_react2.default.createElement(
-  'footer',
-  null,
-  _react2.default.createElement(
-    'div',
-    { 'class': 'mui-container-fluid mui--text-center' },
-    'Copyright 2018 Jeffrey Goff',
+    'footer',
+    null,
     _react2.default.createElement(
-      'a',
-      { href: 'https://theperlfisher.blogspot.ro/' },
-      'The Perl Fisher'
-    ),
-    _react2.default.createElement('br', null),
-    'Send me a ',
-    _react2.default.createElement(
-      'a',
-      { href: 'https://github.com/drforr/perl6-App-Learn-Perl6.git' },
-      'GitHub'
-    ),
-    ' pull request'
-  )
+        'div',
+        { 'class': 'mui-container-fluid mui--text-center' },
+        'Copyright 2018 Jeffrey Goff',
+        _react2.default.createElement(
+            'a',
+            { href: 'https://theperlfisher.blogspot.ro/' },
+            'The Perl Fisher'
+        ),
+        _react2.default.createElement('br', null),
+        'Send me a ',
+        _react2.default.createElement(
+            'a',
+            { href: 'https://github.com/drforr/perl6-App-Learn-Perl6.git' },
+            'GitHub'
+        ),
+        ' pull request'
+    )
 ), document.getElementById('footer'));
 
 /***/ }),

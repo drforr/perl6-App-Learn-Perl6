@@ -8,7 +8,7 @@ import * as Actions from './actions';
 import { tipsyReducer } from './reducer';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 
-var SubmitTip = props => (
+var SendUserCode = props => (
     <div>
         <h2>Got a tip?</h2>
         <div>
@@ -27,16 +27,16 @@ var SubmitTip = props => (
     </div>
 );
 
-var TipList = props => (
+var ResponseList = props => (
     <div>
         <h2>{props.heading}</h2>
         <ul>
-        {props.tips.map(t => <Tip key={t.id} {...props} {...t} />)}
+        {props.tips.map(t => <Response key={t.id} {...props} {...t} />)}
         </ul>
     </div>
 );
 
-var Tip = props => (
+var Response = props => (
     <li>
         {props.text} [<a href="#"
                          onClick={() => props.onAgree(props.id)}>Agree</a>]
@@ -46,12 +46,12 @@ var Tip = props => (
 
 var App = props => (
     <div>
-        <SubmitTip tipText={props.tipText}
+        <SendUserCode tipText={props.tipText}
             onChangeTipText={props.onChangeTipText}
             onAddTip={props.onAddTip} />
-        <TipList heading="Latest Tips" tips={props.latestTips}
+        <ResponseList heading="Latest Tips" tips={props.latestTips}
             onAgree={props.onAgree} onDisagree={props.onDisagree} />
-        <TipList heading="Top Tips" tips={props.topTips}
+        <ResponseList heading="Top Tips" tips={props.topTips}
             onAgree={props.onAgree} onDisagree={props.onDisagree} />
     </div>
 );
