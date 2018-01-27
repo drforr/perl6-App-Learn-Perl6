@@ -19,9 +19,11 @@
     "webpack": "^3.6.0"
   },
   "dependencies": {
+    "codemirror": "^5.33.0",
     "jquery": "^3.2.1",
     "muicss": "^0.9.35",
     "react": "^16.0.0",
+    "react-codemirror2": "^3.0.7",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",

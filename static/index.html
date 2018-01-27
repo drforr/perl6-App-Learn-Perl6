@@ -6,7 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Tipsy</title>
-    <link href="//cdn.muicss.com/mui-0.9.35/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/codemirror.css" rel="stylesheet" type="text/css" />
+    <link href="/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="/js/codemirror.js"></script>
+    <!-- XXX Create a proper perl6 .js file eventually -->
+    <script src="/js/codemirror-mode/perl.js"></script>
+<!--
+    <script src="/js/jquery-3.2.1.min.js"></script>
+-->
     <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
     <script>
       jQuery(function($) {
@@ -217,68 +224,14 @@ buttons {
   </head>
   <body>
     <div class="mui--appbar-height"></div>
-    <div id="sidedrawer" class="mui--no-user-select">
-      <div id="sidedrawer-brand" class="mui--appbar-line-height">
-        <span class="mui--text-title">Learn Perl 6 Online</span>
-      </div>
-      <div class="mui-divider"></div>
-      <ul>
-        <li>
-          <strong>Intro to the Tour</strong>
-          <ul>
-            <li><a href="#">Item 1</a></li>
-            <li><a href="#">Item 2</a></li>
-            <li><a href="#">Item 3</a></li>
-          </ul>
-        </li>
-        <li>
-          <strong>Learning Perl 6</strong>
-          <ul>
-            <li><a href="#">Item 1</a></li>
-            <li><a href="#">Item 2</a></li>
-            <li><a href="#">Item 3</a></li>
-          </ul>
-        </li>
-        <li>
-          <strong>Programming Perl 6</strong>
-          <ul>
-            <li><a href="#">Item 1</a></li>
-            <li><a href="#">Item 2</a></li>
-            <li><a href="#">Item 3</a></li>
-          </ul>
-        </li>
-        <li>
-          <strong>Advanced Perl 6</strong>
-          <ul>
-            <li><a href="#">Item 1</a></li>
-            <li><a href="#">Item 2</a></li>
-            <li><a href="#">Item 3</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-
-    <header id="header">
-      <div class="mui-appbar mui--appbar-line-height">
-        <div class="mui-container-fluid">
-          <a class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer">☰</a>
-          <a class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer">☰</a>
-          <span class="mui--text-title mui--visible-xs-inline-block">Brand.io</span>
-        </div>
-      </div>
-    </header>
+    <div id="sidebar"></div>
+    <div id="header"></div>
     <div id="content-wrapper">
       <div class="mui-container-fluid">
         <div id="app"></div>
       </div>
     </div>
-    <footer>
-      <div class="mui-container-fluid mui--text-center">
-        Copyright 2018 Jeffrey Goff
-        <a href="https://theperlfisher.blogspot.ro/">The Perl Fisher</a><br />
-        Send me a <a href="https://github.com/drforr/perl6-App-Learn-Perl6.git">GitHub</a> pull request
-      </div>
-    </footer>
+    <div id="footer"></div>
     <script src="js/bundle.js"></script>
   </body>
 </html>

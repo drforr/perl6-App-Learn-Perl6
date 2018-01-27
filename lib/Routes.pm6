@@ -8,6 +8,7 @@ sub routes(Tipsy $tipsy) is export {
         get -> { static 'static/index.html' }
 
         get -> 'js', *@path { static 'static/js', @path }
+        get -> 'css', *@path { static 'static/css', @path }
 
         post -> 'tips' {
             request-body -> (:$text) {
