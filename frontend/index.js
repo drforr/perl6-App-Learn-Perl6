@@ -5,25 +5,25 @@ import { Provider, connect } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import WSAction from 'redux-websocket-action';
 import * as Actions from './actions';
-import { tipsyReducer } from './reducer';
+import { learnPerl6Reducer } from './reducer';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 
 var SendUserCode = props => (
     <div>
         <h2>Got a tip?</h2>
         <div>
-          <CodeMirror value={props.tipText}
+          <CodeMirror value={props.userCode}
                       options={{
                         mode: 'perl',
                         theme: 'materials',
                         lineNumbers: true
                       }}
                       onChange={(editor,data,value) => {
-			props.onChangeTipText(value)
+			props.onChangeUserCode(value)
                       }}
           />
         </div>
-        <input type="button" value="Add Tip" onClick={props.onAddTip} />
+        <input type="button" value="Add Tip" onClick={props.onAddResponse} />
     </div>
 );
 
@@ -46,12 +46,12 @@ var Response = props => (
 
 var App = props => (
     <div>
-        <SendUserCode tipText={props.tipText}
-            onChangeTipText={props.onChangeTipText}
-            onAddTip={props.onAddTip} />
-        <ResponseList heading="Latest Tips" tips={props.latestTips}
+        <SendUserCode userCode={props.userCode}
+            onChangeUserCode={props.onChangeUserCode}
+            onAddResponse={props.onAddResponse} />
+        <ResponseList heading="Latest Tips" tips={props.latestResponses}
             onAgree={props.onAgree} onDisagree={props.onDisagree} />
-        <ResponseList heading="Top Tips" tips={props.topTips}
+        <ResponseList heading="Top Tips" tips={props.topResponses}
             onAgree={props.onAgree} onDisagree={props.onDisagree} />
     </div>
 );
@@ -61,14 +61,14 @@ function mapProps(state) {
 }
 function mapDispatch(dispatch) {
     return {
-        onChangeTipText: text => dispatch(Actions.changeTipText(text)),
-        onAddTip: text => dispatch(Actions.addTip()),
+        onChangeUserCode: text => dispatch(Actions.changeResponseText(text)),
+        onAddResponse: text => dispatch(Actions.addResponse()),
         onAgree: id => dispatch(Actions.agree(id)),
         onDisagree: id => dispatch(Actions.disagree(id)),
     };
 }
 
-let store = createStore(tipsyReducer, applyMiddleware(thunkMiddleware));
+let store = createStore(learnPerl6Reducer, applyMiddleware(thunkMiddleware));
 
 ['latest-tips', 'top-tips'].forEach(endpoint => {
     let host = window.location.host;

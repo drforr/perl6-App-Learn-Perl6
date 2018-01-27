@@ -1,23 +1,23 @@
 import $ from 'jquery';
 
-export const CHANGE_TIP_TEXT = 'CHANGE_TIP_TEXT';
-export const ADD_TIP = 'ADD_TIP';
-export const LATEST_TIP = 'LATEST_TIP';
-export const UPDATE_TOP_TIPS = 'UPDATE_TOP_TIPS';
+export const CHANGE_RESPONSE_TEXT = 'CHANGE_RESPONSE_TEXT';
+export const ADD_RESPONSE = 'ADD_RESPONSE';
+export const LATEST_RESPONSE = 'LATEST_RESPONSE';
+export const UPDATE_TOP_RESPONSES = 'UPDATE_TOP_RESPONSES';
 export const AGREE = 'AGREE';
 export const DISAGREE = 'DISAGREE';
 
-export function changeTipText(text) {
-    return { type: CHANGE_TIP_TEXT, text };
+export function changeResponseText(text) {
+    return { type: CHANGE_RESPONSE_TEXT, text };
 }
-export function addTip() {
+export function addResponse() {
     return (dispatch, getState) => {
         $.ajax({
             url: '/tips',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({ text: getState().tipText }),
-            success: () => dispatch({ type: ADD_TIP })
+            data: JSON.stringify({ text: getState().responseText }),
+            success: () => dispatch({ type: ADD_RESPONSE })
         });
     };
 }

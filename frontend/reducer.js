@@ -1,27 +1,27 @@
 import * as ActionTypes from './actions';
 
 const initialState = {
-    tipText: '',
-    latestTips: [],
-    topTips: []
+    responseText: '',
+    latestResponses: [],
+    topResponses: []
 };
-export function tipsyReducer(state = initialState, action) {
+export function learnPerl6Reducer(state = initialState, action) {
     switch (action.type) {
-        case ActionTypes.CHANGE_TIP_TEXT:
-            return { ...state, tipText: action.text };
-        case ActionTypes.ADD_TIP:
-            return { ...state, tipText: '' };
-        case ActionTypes.LATEST_TIP: {
-            let tip = { id: action.id, text: action.text };
+        case ActionTypes.CHANGE_RESPONSE_TEXT:
+            return { ...state, responseText: action.text };
+        case ActionTypes.ADD_RESPONSE:
+            return { ...state, responseText: '' };
+        case ActionTypes.LATEST_RESPONSE: {
+            let response = { id: action.id, text: action.text };
             return {
                 ...state,
-                latestTips: [tip, ...state.latestTips]
+                latestResponses: [response, ...state.latestResponses]
             };
         }
-        case ActionTypes.UPDATE_TOP_TIPS:
+        case ActionTypes.UPDATE_TOP_RESPONSES:
             return {
                 ...state,
-                topTips: action.tips
+                topResponses: action.tips
             };
         default:
             return state;

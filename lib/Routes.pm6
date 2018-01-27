@@ -23,7 +23,7 @@ sub routes(Tipsy $tipsy) is export {
                     emit to-json {
                         WS_ACTION => True,
                         action => {
-                            type => 'LATEST_TIP',
+                            type => 'LATEST_RESPONSE',
                             id => $tip.id,
                             text => $tip.tip
                         }
@@ -58,7 +58,7 @@ sub routes(Tipsy $tipsy) is export {
                     emit to-json {
                         WS_ACTION => True,
                         action => {
-                            type => 'UPDATE_TOP_TIPS',
+                            type => 'UPDATE_TOP_RESPONSES',
                             tips => [@tips.map: -> $tip {
                                 {
                                     id => $tip.id,

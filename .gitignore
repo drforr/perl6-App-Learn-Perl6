@@ -1,4 +1,5 @@
 .precomp/
 node_modules/
+static/js/bundle.js
 *.swo
 *.swp
