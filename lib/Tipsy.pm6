@@ -17,26 +17,26 @@ class Tip {
 
 class X::Tipsy::NoSuchId is Exception {
     has $.id;
-    method message() { "No tip with ID '$!id'" }
+    method message() { "No response with ID '$!id'" }
 }
 
 monitor Tipsy {
     has Int $!next-id = 1;
     has Tip %!tips-by-id{Int};
-    has Supplier $!latest-tips = Supplier.new;
+    has Supplier $!latest-responses = Supplier.new;
     has Supplier $!tip-change = Supplier.new;
 
     method add-tip(Str $tip --> Nil) {
         my $id = $!next-id++;
         my $new-tip = Tip.new(:$id, :$tip);
         %!tips-by-id{$id} = $new-tip;
-        start $!latest-tips.emit($new-tip);
+        start $!latest-responses.emit($new-tip);
     }
 
-    method latest-tips(--> Supply) {
+    method latest-responses(--> Supply) {
         my @latest-existing = %!tips-by-id.values.sort(-*.id).head(50);
         supply {
-            whenever $!latest-tips {
+            whenever $!latest-responses {
                 .emit;
             }
             .emit for @latest-existing;
@@ -65,14 +65,14 @@ monitor Tipsy {
         }
     }
 
-    method top-tips(--> Supply) {
+    method top-responses(--> Supply) {
         my %initial-tips = %!tips-by-id;
         supply {
             my %current-tips = %initial-tips;
             sub emit-latest-sorted() {
                 emit [%current-tips.values.sort({ .disagreed - .agreed }).head(50)]
             }
-            whenever Supply.merge($!latest-tips.Supply, $!tip-change.Supply) {
+            whenever Supply.merge($!latest-responses.Supply, $!tip-change.Supply) {
                 %current-tips{.id} = $_;
                 emit-latest-sorted;
             }

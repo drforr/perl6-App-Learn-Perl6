@@ -10,16 +10,16 @@ sub routes(Tipsy $tipsy) is export {
         get -> 'js', *@path { static 'static/js', @path }
         get -> 'css', *@path { static 'static/css', @path }
 
-        post -> 'tips' {
+        post -> 'response' {
             request-body -> (:$text) {
                 $tipsy.add-tip($text);
                 response.status = 204;
             }
         }
 
-        get -> 'latest-tips' {
+        get -> 'latest-responses' {
             web-socket -> $incoming {
-                supply whenever $tipsy.latest-tips -> $tip {
+                supply whenever $tipsy.latest-responses -> $tip {
                     emit to-json {
                         WS_ACTION => True,
                         action => {
@@ -32,7 +32,7 @@ sub routes(Tipsy $tipsy) is export {
             }
         }
 
-        post -> 'tips', Int $id, 'agree' {
+        post -> 'response', Int $id, 'agree' {
             $tipsy.agree($id);
             response.status = 204;
             CATCH {
@@ -42,7 +42,7 @@ sub routes(Tipsy $tipsy) is export {
             }
         }
 
-        post -> 'tips', Int $id, 'disagree' {
+        post -> 'response', Int $id, 'disagree' {
             $tipsy.disagree($id);
             response.status = 204;
             CATCH {
@@ -52,9 +52,9 @@ sub routes(Tipsy $tipsy) is export {
             }
         }
 
-        get -> 'top-tips' {
+        get -> 'top-responses' {
             web-socket -> $incoming {
-                supply whenever $tipsy.top-tips -> @tips {
+                supply whenever $tipsy.top-responses -> @tips {
                     emit to-json {
                         WS_ACTION => True,
                         action => {

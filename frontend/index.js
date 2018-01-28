@@ -10,7 +10,7 @@ import { UnControlled as CodeMirror } from 'react-codemirror2';
 
 var SendUserCode = props => (
     <div>
-        <h2>Got a tip?</h2>
+        <h2>Run your Perl 6 Here</h2>
         <div>
           <CodeMirror value={props.userCode}
                       options={{
@@ -23,7 +23,7 @@ var SendUserCode = props => (
                       }}
           />
         </div>
-        <input type="button" value="Add Tip" onClick={props.onAddResponse} />
+        <input type="button" value="Run" onClick={props.onAddResponse} />
     </div>
 );
 
@@ -38,9 +38,9 @@ var ResponseList = props => (
 
 var Response = props => (
     <li>
-        {props.text} [<a href="#"
-                         onClick={() => props.onAgree(props.id)}>Agree</a>]
-        [<a href="#" onClick={() => props.onDisagree(props.id)}>Disagree</a>]
+        {props.text}
+          [<a href="#" onClick={() => props.onAgree(props.id)}>Agree</a>]
+          [<a href="#" onClick={() => props.onDisagree(props.id)}>Disagree</a>]
     </li>
 );
 
@@ -49,9 +49,9 @@ var App = props => (
         <SendUserCode userCode={props.userCode}
             onChangeUserCode={props.onChangeUserCode}
             onAddResponse={props.onAddResponse} />
-        <ResponseList heading="Latest Tips" tips={props.latestResponses}
+        <ResponseList heading="Latest Responses" tips={props.latestResponses}
             onAgree={props.onAgree} onDisagree={props.onDisagree} />
-        <ResponseList heading="Top Tips" tips={props.topResponses}
+        <ResponseList heading="Top Responses" tips={props.topResponses}
             onAgree={props.onAgree} onDisagree={props.onDisagree} />
     </div>
 );
@@ -70,7 +70,7 @@ function mapDispatch(dispatch) {
 
 let store = createStore(learnPerl6Reducer, applyMiddleware(thunkMiddleware));
 
-['latest-tips', 'top-tips'].forEach(endpoint => {
+['latest-responses', 'top-responses'].forEach(endpoint => {
     let host = window.location.host;
     let wsAction = new WSAction(store, 'ws://' + host + '/' + endpoint, {
         retryCount:3,
@@ -135,7 +135,7 @@ render(
         <div class="mui-container-fluid">
           <a class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer">☰</a>
           <a class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer">☰</a>
-          <span class="mui--text-title mui--visible-xs-inline-block">Brand.io</span>
+          <span class="mui--text-title mui--visible-xs-inline-block">Learn Perl 6 Online</span>
         </div>
       </div>
     </header>,

@@ -13,7 +13,7 @@ export function changeResponseText(text) {
 export function addResponse() {
     return (dispatch, getState) => {
         $.ajax({
-            url: '/tips',
+            url: '/response',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ text: getState().responseText }),
@@ -24,7 +24,7 @@ export function addResponse() {
 export function agree(id) {
     return dispatch => {
         $.ajax({
-            url: '/tips/' + id + '/agree',
+            url: '/response/' + id + '/agree',
             type: 'POST',
             success: () => dispatch({ type: AGREE, id })
         });
@@ -33,7 +33,7 @@ export function agree(id) {
 export function disagree(id) {
     return dispatch => {
         $.ajax({
-            url: '/tips/' + id + '/disagree',
+            url: '/response/' + id + '/disagree',
             type: 'POST',
             success: () => dispatch({ type: DISAGREE, id })
         });
