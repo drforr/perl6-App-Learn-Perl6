@@ -1,9 +1,9 @@
 use Cro::HTTP::Router;
 use Cro::HTTP::Router::WebSocket;
 use JSON::Fast;
-use Tipsy;
+use LearnPerl6;
 
-sub routes(Tipsy $tipsy) is export {
+sub routes(LearnPerl6 $learn-perl6) is export {
     route {
         get -> { static 'static/index.html' }
 
@@ -12,20 +12,20 @@ sub routes(Tipsy $tipsy) is export {
 
         post -> 'response' {
             request-body -> (:$text) {
-                $tipsy.add-tip($text);
+                $learn-perl6.add-response($text);
                 response.status = 204;
             }
         }
 
         get -> 'latest-responses' {
             web-socket -> $incoming {
-                supply whenever $tipsy.latest-responses -> $tip {
+                supply whenever $learn-perl6.latest-responses -> $response {
                     emit to-json {
                         WS_ACTION => True,
                         action => {
                             type => 'LATEST_RESPONSE',
-                            id => $tip.id,
-                            text => $tip.tip
+                            id => $response.id,
+                            text => $response.response
                         }
                     } 
                 }
@@ -33,20 +33,20 @@ sub routes(Tipsy $tipsy) is export {
         }
 
         post -> 'response', Int $id, 'agree' {
-            $tipsy.agree($id);
+            $learn-perl6.agree($id);
             response.status = 204;
             CATCH {
-                when X::Tipsy::NoSuchId {
+                when X::LearnPerl6::NoSuchId {
                     not-found;
                 }
             }
         }
 
         post -> 'response', Int $id, 'disagree' {
-            $tipsy.disagree($id);
+            $learn-perl6.disagree($id);
             response.status = 204;
             CATCH {
-                when X::Tipsy::NoSuchId {
+                when X::LearnPerl6::NoSuchId {
                     not-found;
                 }
             }
@@ -54,17 +54,17 @@ sub routes(Tipsy $tipsy) is export {
 
         get -> 'top-responses' {
             web-socket -> $incoming {
-                supply whenever $tipsy.top-responses -> @tips {
+                supply whenever $learn-perl6.top-responses -> @responses {
                     emit to-json {
                         WS_ACTION => True,
                         action => {
                             type => 'UPDATE_TOP_RESPONSES',
-                            tips => [@tips.map: -> $tip {
+                            responses => [@responses.map: -> $response {
                                 {
-                                    id => $tip.id,
-                                    text => $tip.tip,
-                                    agreed => $tip.agreed,
-                                    disagreed => $tip.disagreed
+                                    id => $response.id,
+                                    text => $response.response,
+                                    agreed => $response.agreed,
+                                    disagreed => $response.disagreed
                                 }
                             }]
                         }

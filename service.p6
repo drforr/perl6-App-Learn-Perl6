@@ -1,9 +1,9 @@
 use Cro::HTTP::Log::File;
 use Cro::HTTP::Server;
 use Routes;
-use Tipsy;
+use LearnPerl6;
 
-my $tipsy = Tipsy.new;
+my $tipsy = LearnPerl6.new;
 my $application = routes($tipsy);
 
 my Cro::Service $http = Cro::HTTP::Server.new(

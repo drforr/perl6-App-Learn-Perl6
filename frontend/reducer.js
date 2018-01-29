@@ -21,7 +21,7 @@ export function learnPerl6Reducer(state = initialState, action) {
         case ActionTypes.UPDATE_TOP_RESPONSES:
             return {
                 ...state,
-                topResponses: action.tips
+                topResponses: action.responses
             };
         default:
             return state;

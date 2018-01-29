@@ -1,33 +1,33 @@
-use Tipsy;
+use LearnPerl6;
 use Test;
 
-my $tipsy = Tipsy.new;
-lives-ok { $tipsy.add-tip('The lamb kebabs are good!') },
+my $learn-perl6 = LearnPerl6.new;
+lives-ok { $learn-perl6.add-response('The lamb kebabs are good!') },
     'Can add a tip';
-lives-ok { $tipsy.add-tip('Not so keen on the fish burrito!') },
+lives-ok { $learn-perl6.add-response('Not so keen on the fish burrito!') },
     'Can add another tip';
-given $tipsy.latest-responses.head(2).list -> @tips {
+given $learn-perl6.latest-responses.head(2).list -> @tips {
     is @tips[0].tip, 'Not so keen on the fish burrito!',
         'Correct first tip retrieved on initial tap of latest-tips';
     is @tips[1].tip, 'The lamb kebabs are good!',
         'Correct second tip retrieved on initial tap latest-tips';
 }
 react {
-    whenever $tipsy.latest-responses.skip(2).head(1) {
+    whenever $learn-perl6.latest-responses.skip(2).head(1) {
         is .tip, 'Try the vanilla stout for sure',
             'Get new tips emitted live';
     }
-    $tipsy.add-tip('Try the vanilla stout for sure');
+    $learn-perl6.add-response('Try the vanilla stout for sure');
 }
 
-given $tipsy.latest-responses.head(3).list -> @tips {
-    $tipsy.agree(@tips[0].id) for ^3;
-    $tipsy.agree(@tips[1].id) for ^4;
-    $tipsy.disagree(@tips[1].id) for ^10;
-    $tipsy.agree(@tips[2].id) for ^2;
+given $learn-perl6.latest-responses.head(3).list -> @tips {
+    $learn-perl6.agree(@tips[0].id) for ^3;
+    $learn-perl6.agree(@tips[1].id) for ^4;
+    $learn-perl6.disagree(@tips[1].id) for ^10;
+    $learn-perl6.agree(@tips[2].id) for ^2;
 }
-given $tipsy.top-responses().list[0] { # XXX JMG note the argument vanished
-#given $tipsy.top-responses(1).list[0] {
+given $learn-perl6.top-responses().list[0] { # XXX JMG note the argument vanished
+#given $learn-perl6.top-responses(1).list[0] {
     is .[0].tip, 'Try the vanilla stout for sure',
         'Most agreeable tip first';
     is .[1].tip, 'The lamb kebabs are good!',
@@ -35,12 +35,12 @@ given $tipsy.top-responses().list[0] { # XXX JMG note the argument vanished
     is .[2].tip, 'Not so keen on the fish burrito!',
         'Least agreeable tip third';
 }
-throws-like { $tipsy.agree(99999) }, X::Tipsy::NoSuchId,
+throws-like { $learn-perl6.agree(99999) }, X::LearnPerl6::NoSuchId,
     'Correct exception on no such tip';
 
 my $new-tip-id;
 react {
-    whenever $tipsy.top-responses.skip(1).head(1) {
+    whenever $learn-perl6.top-responses.skip(1).head(1) {
         is .[0].tip, 'Try the vanilla stout for sure',
             'After adding a tip, correct order (1)';
         is .[1].tip, 'The lamb kebabs are good!',
@@ -51,16 +51,16 @@ react {
             'After adding a tip, correct order (4)';
         $new-tip-id = .[2].id;
     }
-    $tipsy.add-tip('The pau bahji is super spicy');
+    $learn-perl6.add-response('The pau bahji is super spicy');
 }
 ok $new-tip-id, 'New tip ID seen in top sorted tips';
 
 react {
-    whenever $tipsy.top-responses.skip(5).head(1) {
+    whenever $learn-perl6.top-responses.skip(5).head(1) {
         is .[0].tip, 'The pau bahji is super spicy',
             'After agrees, order updated';
     }
-    $tipsy.agree($new-tip-id) for ^5;
+    $learn-perl6.agree($new-tip-id) for ^5;
 }
 
 done-testing;

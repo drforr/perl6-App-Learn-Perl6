@@ -31,7 +31,7 @@ var ResponseList = props => (
     <div>
         <h2>{props.heading}</h2>
         <ul>
-        {props.tips.map(t => <Response key={t.id} {...props} {...t} />)}
+        {props.responses.map(t => <Response key={t.id} {...props} {...t} />)}
         </ul>
     </div>
 );
@@ -49,9 +49,9 @@ var App = props => (
         <SendUserCode userCode={props.userCode}
             onChangeUserCode={props.onChangeUserCode}
             onAddResponse={props.onAddResponse} />
-        <ResponseList heading="Latest Responses" tips={props.latestResponses}
+        <ResponseList heading="Latest Responses" responses={props.latestResponses}
             onAgree={props.onAgree} onDisagree={props.onDisagree} />
-        <ResponseList heading="Top Responses" tips={props.topResponses}
+        <ResponseList heading="Top Responses" responses={props.topResponses}
             onAgree={props.onAgree} onDisagree={props.onDisagree} />
     </div>
 );
