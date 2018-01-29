@@ -26,7 +26,7 @@ monitor LearnPerl6 {
     has Supplier $!latest-responses = Supplier.new;
     has Supplier $!response-change = Supplier.new;
 
-    method add-response(Str $response --> Nil) {
+    method run-user-code(Str $response --> Nil) {
         my $id = $!next-id++;
         my $new-response = Response.new(:$id, :$response);
         %!responses-by-id{$id} = $new-response;

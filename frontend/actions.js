@@ -10,10 +10,10 @@ export const DISAGREE = 'DISAGREE';
 export function changeResponseText(text) {
     return { type: CHANGE_RESPONSE_TEXT, text };
 }
-export function addResponse() {
+export function runUserCode() {
     return (dispatch, getState) => {
         $.ajax({
-            url: '/response',
+            url: '/runUserCode',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ text: getState().responseText }),

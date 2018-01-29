@@ -10,25 +10,10 @@ sub routes(LearnPerl6 $learn-perl6) is export {
         get -> 'js', *@path { static 'static/js', @path }
         get -> 'css', *@path { static 'static/css', @path }
 
-        post -> 'response' {
+        post -> 'runUserCode' {
             request-body -> (:$text) {
-                $learn-perl6.add-response($text);
+                $learn-perl6.run-user-code($text);
                 response.status = 204;
-            }
-        }
-
-        get -> 'latest-responses' {
-            web-socket -> $incoming {
-                supply whenever $learn-perl6.latest-responses -> $response {
-                    emit to-json {
-                        WS_ACTION => True,
-                        action => {
-                            type => 'LATEST_RESPONSE',
-                            id => $response.id,
-                            text => $response.response
-                        }
-                    } 
-                }
             }
         }
 
@@ -48,6 +33,21 @@ sub routes(LearnPerl6 $learn-perl6) is export {
             CATCH {
                 when X::LearnPerl6::NoSuchId {
                     not-found;
+                }
+            }
+        }
+
+        get -> 'latest-responses' {
+            web-socket -> $incoming {
+                supply whenever $learn-perl6.latest-responses -> $response {
+                    emit to-json {
+                        WS_ACTION => True,
+                        action => {
+                            type => 'LATEST_RESPONSE',
+                            id => $response.id,
+                            text => $response.response
+                        }
+                    } 
                 }
             }
         }

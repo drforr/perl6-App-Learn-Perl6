@@ -23,7 +23,7 @@ var SendUserCode = props => (
                       }}
           />
         </div>
-        <input type="button" value="Run" onClick={props.onAddResponse} />
+        <input type="button" value="Run" onClick={props.onRunUserCode} />
     </div>
 );
 
@@ -48,7 +48,7 @@ var App = props => (
     <div>
         <SendUserCode userCode={props.userCode}
             onChangeUserCode={props.onChangeUserCode}
-            onAddResponse={props.onAddResponse} />
+            onRunUserCode={props.onRunUserCode} />
         <ResponseList heading="Latest Responses" responses={props.latestResponses}
             onAgree={props.onAgree} onDisagree={props.onDisagree} />
         <ResponseList heading="Top Responses" responses={props.topResponses}
@@ -62,7 +62,7 @@ function mapProps(state) {
 function mapDispatch(dispatch) {
     return {
         onChangeUserCode: text => dispatch(Actions.changeResponseText(text)),
-        onAddResponse: text => dispatch(Actions.addResponse()),
+        onRunUserCode: text => dispatch(Actions.runUserCode()),
         onAgree: id => dispatch(Actions.agree(id)),
         onDisagree: id => dispatch(Actions.disagree(id)),
     };

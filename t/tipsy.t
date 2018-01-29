@@ -2,9 +2,9 @@ use LearnPerl6;
 use Test;
 
 my $learn-perl6 = LearnPerl6.new;
-lives-ok { $learn-perl6.add-response('The lamb kebabs are good!') },
+lives-ok { $learn-perl6.run-user-code('The lamb kebabs are good!') },
     'Can add a tip';
-lives-ok { $learn-perl6.add-response('Not so keen on the fish burrito!') },
+lives-ok { $learn-perl6.run-user-code('Not so keen on the fish burrito!') },
     'Can add another tip';
 given $learn-perl6.latest-responses.head(2).list -> @tips {
     is @tips[0].tip, 'Not so keen on the fish burrito!',
@@ -17,7 +17,7 @@ react {
         is .tip, 'Try the vanilla stout for sure',
             'Get new tips emitted live';
     }
-    $learn-perl6.add-response('Try the vanilla stout for sure');
+    $learn-perl6.run-user-code('Try the vanilla stout for sure');
 }
 
 given $learn-perl6.latest-responses.head(3).list -> @tips {
@@ -51,7 +51,7 @@ react {
             'After adding a tip, correct order (4)';
         $new-tip-id = .[2].id;
     }
-    $learn-perl6.add-response('The pau bahji is super spicy');
+    $learn-perl6.run-user-code('The pau bahji is super spicy');
 }
 ok $new-tip-id, 'New tip ID seen in top sorted tips';
 
