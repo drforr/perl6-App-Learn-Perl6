@@ -1,8 +1,8 @@
 {
-  "name": "tipsy",
-  "source-url": "Write me!",
+  "name": "App::Learn::Perl6",
+  "source-url" : "https://github.com/drforr/perl6-App-Learn-Perl6.git",
   "support": {
-    "source": "Write me!"
+    "source" : "https://github.com/drforr/perl6-App-Learn-Perl6.git"
   },
   "perl": "6.*",
   "resources": [
@@ -11,26 +11,35 @@
   "build-depends": [
     
   ],
-  "auth": "Write me!",
+  "authors" : [
+     "Jeffrey Goff <drforr@pobox.com>"
+  ],
   "depends": [
     "Cro::HTTP",
     "Cro::WebSocket",
     "OO::Monitors"
   ],
   "tags": [
-    ""
+    "Tutorial",
+    "Application",
+    "Websockets",
+    "HTTP",
+    "React",
+    "Redux",
+    "NodeJS"
   ],
-  "license": "Write me!",
+  "license" : "Artistic-2.0",
   "test-depends": [
-    
+       "Test::META"
   ],
   "provides": {
+    "LearnPerl6.pm6": "lib/LearnPerl6.pm6",
     "Routes.pm6": "lib/Routes.pm6"
   },
   "version": "0.0.1",
-  "authors": [
-    ""
+  "authors" : [
+     "Jeffrey Goff <drforr@pobox.com>"
   ],
-  "description": "Write me!",
+  "description": "A simple Perl 6 onlie tutorial application",
   "meta6": "0"
 }

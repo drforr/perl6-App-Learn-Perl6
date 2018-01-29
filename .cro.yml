@@ -1,15 +1,15 @@
 ---
-name: tipsy
+name: learn-perl6
 cro: 1
-id: tipsy
+id: learn-perl6
 env:  []
 links:  []
 entrypoint: service.p6
 endpoints: 
   - 
-    port-env: TIPSY_PORT
+    port-env: LEARN_PERL6_PORT
     name: HTTP
     protocol: http
-    host-env: TIPSY_HOST
+    host-env: LEARN_PERL6_HOST
     id: http
 ...
