@@ -8,6 +8,21 @@ import * as Actions from './actions';
 import { learnPerl6Reducer } from './reducer';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 
+var CurrentLesson = props => (
+      <div>
+        <table width="100%">
+          <tr>
+            <h1>Welcome to an interactive <a href="https://perl6.org">Perl 6</a> tutorial</h1>
+          </tr>
+          <tr>
+            <td><a href="#">&laquo; Previous</a></td>
+            <td><a href="#">&raquo; Next</a></td>
+          </tr>
+        </table>
+      </div>
+);
+render( <CurrentLesson />, document.getElementById('current_lesson') );
+
 var SendUserCode = props => (
     <div>
         <h2>Run your Perl 6 Here</h2>
