@@ -27,12 +27,23 @@ monitor LearnPerl6 {
     has Supplier $!response-change = Supplier.new;
 
     method run-user-code(Str $user-code --> Nil) {
-        my $proc = run 'perl6', '-e', $user-code, :out; 
-	my $response = $proc.out.get;
-        my $id = $!next-id++;
-        my $new-response = Response.new(:$id, :$response);
-        %!responses-by-id{$id} = $new-response;
-        start $!latest-responses.emit($new-response);
+        my $proc = run( 'perl6', '-e', $user-code, :out, :err );
+	my $response = $proc.out.slurp;
+	my $error = $proc.err.slurp;
+
+        if $error {
+            my $id = $!next-id++;
+            my $response = $error;
+            my $new-error = Response.new(:$id, :$response);
+            %!responses-by-id{$id} = $new-error;
+            start $!latest-responses.emit($new-error);
+        }
+        if $response {
+            my $id = $!next-id++;
+            my $new-response = Response.new(:$id, :$response);
+            %!responses-by-id{$id} = $new-response;
+            start $!latest-responses.emit($new-response);
+        }
     }
 
     method latest-responses(--> Supply) {
