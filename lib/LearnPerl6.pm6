@@ -14,6 +14,10 @@ class Response {
         self.clone(disagreed => $!disagreed + 1)
     }
 }
+class Response::StdOut is Response {
+}
+class Response::StdErr is Response {
+}
 
 class X::LearnPerl6::NoSuchId is Exception {
     has $.id;
@@ -34,13 +38,13 @@ monitor LearnPerl6 {
         if $error {
             my $id = $!next-id++;
             my $response = $error;
-            my $new-error = Response.new(:$id, :$response);
+            my $new-error = Response::StdErr.new(:$id, :$response);
             %!responses-by-id{$id} = $new-error;
             start $!latest-responses.emit($new-error);
         }
         if $response {
             my $id = $!next-id++;
-            my $new-response = Response.new(:$id, :$response);
+            my $new-response = Response::StdOut.new(:$id, :$response);
             %!responses-by-id{$id} = $new-response;
             start $!latest-responses.emit($new-response);
         }
