@@ -15,8 +15,8 @@ var Lesson = props => (
                 <h1>Welcome to an interactive <a href="https://perl6.org">Perl 6</a> tutorial</h1>
             </tr>
             <tr>
-                <td><a href="#">&laquo; Previous</a></td>
-                <td><a href="#">Next &raquo;</a></td>
+                <td><a href="#" onClick={() => props.onPreviousLesson(props.id)}>&laquo; Previous</a></td>
+                <td><a href="#" onClick={() => props.onNextLesson(props.id)}>Next &raquo;</a></td>
             </tr>
         </table>
     </div>
@@ -123,6 +123,8 @@ function mapDispatch(dispatch) {
         onRunUserCode: text => dispatch(Actions.runUserCode()),
         onAgree: id => dispatch(Actions.agree(id)),
         onDisagree: id => dispatch(Actions.disagree(id)),
+	onPreviousLesson: id => dispatch(Actions.previousLesson(id)),
+	onNextLesson: id => dispatch(Actions.nextLesson(id)),
     };
 }
 
@@ -162,7 +164,9 @@ var App = props => (
                 onDisagree={props.onDisagree} />
             <ResponseList heading="Top Responses" responses={props.topResponses}
                 onAgree={props.onAgree} onDisagree={props.onDisagree} />
-            <Lesson />
+            <Lesson
+                onPreviousLesson={props.onPreviousLesson}
+	        onNextLesson={props.onNextLesson} />
         </div>
         <Footer />
     </div>

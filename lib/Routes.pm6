@@ -37,6 +37,26 @@ sub routes(LearnPerl6 $learn-perl6) is export {
             }
         }
 
+        post -> 'lesson', Int $id, 'previous' {
+            $learn-perl6.previousLesson($id);
+            response.status = 204;
+            CATCH {
+                when X::LearnPerl6::NoSuchId {
+                    not-found;
+                }
+            }
+        }
+
+        post -> 'lesson', Int $id, 'next' {
+            $learn-perl6.nextLesson($id);
+            response.status = 204;
+            CATCH {
+                when X::LearnPerl6::NoSuchId {
+                    not-found;
+                }
+            }
+        }
+
         get -> 'latest-responses' {
             web-socket -> $incoming {
                 supply whenever $learn-perl6.latest-responses -> $response {

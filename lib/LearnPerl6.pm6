@@ -96,4 +96,28 @@ monitor LearnPerl6 {
             emit-latest-sorted;
         }
     }
+
+# ...
+
+    method previousLesson(Int $response-id --> Nil) {
+#        self!with-response: $response-id, -> $response-ref is rw {
+#            $response-ref .= agree;
+#        }
+    }
+
+    method nextLesson(Int $response-id --> Nil) {
+#        self!with-response: $response-id, -> $response-ref is rw {
+#            $response-ref .= disagree;
+#        }
+    }
+
+    method !with-lesson(Int $response-id, &operation --> Nil) {
+#        with %!responses-by-id{$response-id} -> $response-ref is rw {
+#            operation($response-ref);
+#            start $!response-change.emit($response-ref<>);
+#        }
+#        else {
+#            X::LearnPerl6::NoSuchId.new(id => $response-id).throw;
+#        }
+    }
 }
